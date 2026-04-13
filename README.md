@@ -253,6 +253,21 @@ Latencies:
 
 ---
 
+
+## Results Summary
+
+| Case                | Avg Latency | Grouping | Cache | Insight                  |
+| ------------------- | ----------- | -------- | ----- | ------------------------ |
+| Baseline            | ~0.50s      | ❌        | ❌     | Pure batching            |
+| Same Prefix (Naive) | ~0.56s      | ❌        | ❌     | No improvement           |
+| Grouping Only       | ~0.65s      | ✅        | ❌     | Structural grouping only |
+| Mixed Prompts       | ~0.50s      | ✅        | ❌     | Groups split             |
+| Cache Only          | ~0.56s      | ❌        | ✅     | Ineffective alone        |
+| Full System         | ~0.54s      | ✅        | ✅     | Best alignment           |
+| Partial Overlap     | ~0.15s      | ⚠️       | ⚠️    | Weak reuse               |
+
+---
+
 ## Limitations
 
 * Prefix matching is naive (string-based)
@@ -281,9 +296,5 @@ This project shows that:
 * GPU benchmarking
 * Integration with SGLang / RadixAttention-style execution
 * Multi-node scheduling
+# Prefix-Aware LLM Inference Scheduler
 
----
-
-## Resume Bullet
-
-Built a prefix-aware LLM inference scheduler on top of vLLM, demonstrating how request grouping affects batching efficiency and KV cache utilization, with controlled experiments analyzing latency behavior under different scheduling strategies.
